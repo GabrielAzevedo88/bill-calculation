@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test
 
 internal class CategoriesLocalSourceTest {
 
-    private val mockCategoriesDao: CategoriesDao = mockk(relaxed = true) {
+    private val mockCategoriesDao: CategoriesDao = mockk {
         every { this@mockk.getAll() } returns CATEGORIES_ENTITIES
         justRun { this@mockk.insertAll(any()) }
     }

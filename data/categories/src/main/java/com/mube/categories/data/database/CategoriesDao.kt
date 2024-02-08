@@ -13,6 +13,6 @@ interface CategoriesDao {
     fun getAll(): List<CategoryEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAll(vararg discounts: CategoryEntity)
+    fun insertAll(vararg categories: CategoryEntity)
 
 }

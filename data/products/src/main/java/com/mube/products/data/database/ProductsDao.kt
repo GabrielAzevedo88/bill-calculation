@@ -1,0 +1,18 @@
+package com.mube.products.data.database
+
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
+import com.mube.products.data.models.ProductEntity
+
+@Dao
+interface ProductsDao {
+
+    @Query("SELECT * FROM products where category_id = :categoryId")
+    fun getAllByCategoryId(categoryId: Int): List<ProductEntity>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertAll(vararg products: ProductEntity)
+
+}

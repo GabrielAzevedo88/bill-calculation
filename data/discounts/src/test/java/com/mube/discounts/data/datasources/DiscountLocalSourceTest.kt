@@ -12,7 +12,7 @@ import org.junit.Test
 
 internal class DiscountLocalSourceTest {
 
-    private val mockDiscountDao: DiscountDao = mockk(relaxed = true) {
+    private val mockDiscountDao: DiscountDao = mockk {
         every { this@mockk.getAll() } returns DISCOUNTS_ENTITIES
         justRun { this@mockk.insertAll(any()) }
     }

@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test
 
 internal class TaxesLocalSourceTest {
 
-    private val mockTaxesDao: TaxesDao = mockk(relaxed = true) {
+    private val mockTaxesDao: TaxesDao = mockk {
         every { this@mockk.getAll() } returns TAXES_ENTITIES
         justRun { this@mockk.insertAll(any()) }
     }

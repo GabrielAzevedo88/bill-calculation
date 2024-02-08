@@ -11,7 +11,6 @@ import org.junit.jupiter.api.Test
 
 internal class CategoriesRepositoryImplTest {
 
-
     private val mockLocalSource: CategoriesLocalSource = mockk() {
         every { this@mockk.getAll() } returns CATEGORIES
         justRun { this@mockk.insertAll(any()) }
