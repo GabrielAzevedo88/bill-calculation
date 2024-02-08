@@ -12,7 +12,7 @@ object DiscountModule {
 
     @Module
     @InstallIn(SingletonComponent::class)
-    abstract class AnalyticsModule {
+    abstract class SingletonModule {
 
         @Singleton
         @Binds
