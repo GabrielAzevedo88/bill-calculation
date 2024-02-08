@@ -15,3 +15,5 @@ dependencyResolutionManagement {
 
 rootProject.name = "bill calculation"
 include(":app")
+include(":data")
+include(":data:discounts")
