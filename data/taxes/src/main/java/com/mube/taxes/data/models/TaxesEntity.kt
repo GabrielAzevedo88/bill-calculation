@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "taxes")
 data class TaxesEntity(
-    @PrimaryKey val id: Int,
+    @PrimaryKey(autoGenerate = true) val id: Int,
     @ColumnInfo(name = "name") val name: String,
     @ColumnInfo(name = "amount") val amount: Float,
     @ColumnInfo(name = "categories_ids") val categoriesId: List<Int>?

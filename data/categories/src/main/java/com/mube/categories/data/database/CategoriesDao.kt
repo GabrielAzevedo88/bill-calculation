@@ -12,7 +12,13 @@ interface CategoriesDao {
     @Query("SELECT * FROM categories")
     fun getAll(): List<CategoryEntity>
 
+    @Query("SELECT * FROM categories where name = :name")
+    fun getByName(name: String): CategoryEntity
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAll(vararg categories: CategoryEntity)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insert(categoryEntity: CategoryEntity): Long
 
 }

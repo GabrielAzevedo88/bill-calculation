@@ -12,8 +12,12 @@ class CategoriesLocalSource @Inject constructor(
 
     fun getAll(): List<Category> = categoriesDao.getAll().map { it.toDomain() }
 
+    fun getByName(name: String): Category = categoriesDao.getByName(name).toDomain()
+
     fun insertAll(categories: List<Category>) {
         categoriesDao.insertAll(*categories.map { it.toEntity() }.toTypedArray())
     }
+
+    fun insert(category: Category): Long = categoriesDao.insert(category.toEntity())
 
 }

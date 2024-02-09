@@ -11,8 +11,10 @@ import org.junit.jupiter.api.Test
 
 internal class CategoriesLocalSourceTest {
 
-    private val mockCategoriesDao: CategoriesDao = mockk {
+    private val mockCategoriesDao: CategoriesDao = mockk(relaxed = true) {
         every { this@mockk.getAll() } returns CATEGORIES_ENTITIES
+        every { this@mockk.getByName(CATEGORY_NAME) } returns CATEGORY_ENTITY
+        every { this@mockk.insert(CATEGORY_ENTITY) } returns 100
         justRun { this@mockk.insertAll(any()) }
     }
 
@@ -29,15 +31,33 @@ internal class CategoriesLocalSourceTest {
     }
 
     @Test
+    fun `test get category by name`() {
+        val expected = CATEGORY
+        val actual = localSource.getByName(CATEGORY_NAME)
+
+        assertEquals(expected, actual)
+    }
+
+    @Test
     fun `test inserting domain models, must save them as an entity`() {
         localSource.insertAll(CATEGORIES)
 
         verify { mockCategoriesDao.insertAll(*CATEGORIES_ENTITIES.toTypedArray()) }
     }
 
+    @Test
+    fun `test insert one category`() {
+        localSource.insert(CATEGORY)
+
+        verify { mockCategoriesDao.insert(CATEGORY_ENTITY) }
+    }
+
     private companion object {
-        private val CATEGORIES = listOf(CategoriesFactory.Domain.CATEGORY)
-        private val CATEGORIES_ENTITIES = listOf(CategoriesFactory.Entity.CATEGORY)
+        val CATEGORY = CategoriesFactory.Domain.CATEGORY
+        val CATEGORY_ENTITY = CategoriesFactory.Entity.CATEGORY
+        val CATEGORIES = listOf(CategoriesFactory.Domain.CATEGORY)
+        val CATEGORIES_ENTITIES = listOf(CategoriesFactory.Entity.CATEGORY)
+        val CATEGORY_NAME = CATEGORY.name
     }
 
 }

@@ -11,5 +11,9 @@ class CategoriesRepositoryImpl @Inject constructor(
 
     override fun getAll(): List<Category> = localSource.getAll()
 
+    override fun getByName(name: String): Category = localSource.getByName(name)
+
     override fun insertAll(categories: List<Category>) = localSource.insertAll(categories)
+
+    override fun insert(category: Category): Long = localSource.insert(category)
 }

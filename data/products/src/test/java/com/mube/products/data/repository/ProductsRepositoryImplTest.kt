@@ -2,12 +2,10 @@ package com.mube.products.data.repository
 
 import com.mube.products.data.ProductsFactory
 import com.mube.products.data.datasources.ProductsLocalSource
-import com.mube.products.domain.repository.ProductsRepository
 import io.mockk.every
 import io.mockk.justRun
 import io.mockk.mockk
 import io.mockk.verify
-import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 

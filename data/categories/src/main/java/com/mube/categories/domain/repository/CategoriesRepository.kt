@@ -7,6 +7,10 @@ interface CategoriesRepository {
 
     fun getAll(): List<Category>
 
+    fun getByName(name: String): Category
+
     fun insertAll(categories: List<Category>)
+
+    fun insert(category: Category): Long
 
 }
