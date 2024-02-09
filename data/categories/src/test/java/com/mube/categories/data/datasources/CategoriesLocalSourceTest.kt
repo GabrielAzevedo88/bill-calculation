@@ -2,20 +2,25 @@ package com.mube.categories.data.datasources
 
 import com.mube.categories.CategoriesFactory
 import com.mube.categories.data.database.CategoriesDao
+import io.mockk.coEvery
+import io.mockk.coJustRun
+import io.mockk.coVerify
 import io.mockk.every
 import io.mockk.justRun
 import io.mockk.mockk
 import io.mockk.verify
+import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
 internal class CategoriesLocalSourceTest {
 
     private val mockCategoriesDao: CategoriesDao = mockk(relaxed = true) {
-        every { this@mockk.getAll() } returns CATEGORIES_ENTITIES
-        every { this@mockk.getByName(CATEGORY_NAME) } returns CATEGORY_ENTITY
-        every { this@mockk.insert(CATEGORY_ENTITY) } returns 100
-        justRun { this@mockk.insertAll(any()) }
+        every { this@mockk.getAll() } returns flowOf(CATEGORIES_ENTITIES)
+        coEvery { this@mockk.getByName(CATEGORY_NAME) } returns CATEGORY_ENTITY
+        coEvery { this@mockk.insert(CATEGORY_ENTITY) } returns 100
+        coJustRun { this@mockk.insertAll(any()) }
     }
 
     private val localSource = CategoriesLocalSource(
@@ -31,7 +36,7 @@ internal class CategoriesLocalSourceTest {
     }
 
     @Test
-    fun `test get category by name`() {
+    fun `test get category by name`() = runTest{
         val expected = CATEGORY
         val actual = localSource.getByName(CATEGORY_NAME)
 
@@ -39,17 +44,17 @@ internal class CategoriesLocalSourceTest {
     }
 
     @Test
-    fun `test inserting domain models, must save them as an entity`() {
+    fun `test inserting domain models, must save them as an entity`() = runTest {
         localSource.insertAll(CATEGORIES)
 
-        verify { mockCategoriesDao.insertAll(*CATEGORIES_ENTITIES.toTypedArray()) }
+        coVerify { mockCategoriesDao.insertAll(*CATEGORIES_ENTITIES.toTypedArray()) }
     }
 
     @Test
-    fun `test insert one category`() {
+    fun `test insert one category`() = runTest {
         localSource.insert(CATEGORY)
 
-        verify { mockCategoriesDao.insert(CATEGORY_ENTITY) }
+        coVerify { mockCategoriesDao.insert(CATEGORY_ENTITY) }
     }
 
     private companion object {

@@ -2,10 +2,14 @@ package com.mube.discounts.data.datasources
 
 import com.mube.discounts.data.DiscountFactory
 import com.mube.discounts.data.database.DiscountDao
+import io.mockk.coEvery
+import io.mockk.coJustRun
+import io.mockk.coVerify
 import io.mockk.every
 import io.mockk.justRun
 import io.mockk.mockk
 import io.mockk.verify
+import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
@@ -13,8 +17,8 @@ import org.junit.Test
 internal class DiscountLocalSourceTest {
 
     private val mockDiscountDao: DiscountDao = mockk {
-        every { this@mockk.getAll() } returns DISCOUNTS_ENTITIES
-        justRun { this@mockk.insertAll(any()) }
+        coEvery { this@mockk.getAll() } returns DISCOUNTS_ENTITIES
+        coJustRun { this@mockk.insertAll(any()) }
     }
 
     private val localSource = DiscountLocalSource(
@@ -22,7 +26,7 @@ internal class DiscountLocalSourceTest {
     )
 
     @Test
-    fun `test get all entity models should return domain models`() {
+    fun `test get all entity models should return domain models`() = runTest {
         val expected = DISCOUNTS
         val actual = localSource.getAll()
 
@@ -30,12 +34,11 @@ internal class DiscountLocalSourceTest {
     }
 
     @Test
-    fun `test inserting domain models, must save them as an entity`() {
+    fun `test inserting domain models, must save them as an entity`()  = runTest{
         localSource.insertAll(DISCOUNTS)
 
-        verify { mockDiscountDao.insertAll(*DISCOUNTS_ENTITIES.toTypedArray()) }
+        coVerify { mockDiscountDao.insertAll(*DISCOUNTS_ENTITIES.toTypedArray()) }
     }
-
 
     private companion object {
         private val DISCOUNTS = listOf(DiscountFactory.Domain.DISCOUNT)

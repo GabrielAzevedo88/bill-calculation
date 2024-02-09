@@ -8,7 +8,7 @@ internal object ProductsFactory {
     private const val ID = 100
     private const val NAME = "name"
     private const val PRICE = 9.99f
-    private const val CATEGORY_ID = 999
+    private const val CATEGORY_ID = 999L
 
     object Entity {
         val PRODUCT = ProductEntity(

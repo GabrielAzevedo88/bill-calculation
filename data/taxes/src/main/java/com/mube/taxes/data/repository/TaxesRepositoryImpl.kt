@@ -9,7 +9,10 @@ class TaxesRepositoryImpl @Inject constructor(
     private val localSource: TaxesLocalSource
 ) : TaxesRepository {
 
-    override fun getAll(): List<Taxes> = localSource.getAll()
+    override suspend fun getAll(): List<Taxes> = localSource.getAll()
 
-    override fun insertAll(taxes: List<Taxes>) = localSource.insertAll(taxes)
+    override suspend fun insertAll(taxes: List<Taxes>) = localSource.insertAll(taxes)
+
+    override suspend fun hasData(): Boolean = localSource.hasData()
+
 }

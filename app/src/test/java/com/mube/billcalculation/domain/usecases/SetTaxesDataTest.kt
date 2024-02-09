@@ -4,9 +4,12 @@ import com.mube.categories.domain.models.Category
 import com.mube.categories.domain.repository.CategoriesRepository
 import com.mube.taxes.domain.models.Taxes
 import com.mube.taxes.domain.repository.TaxesRepository
+import io.mockk.coEvery
+import io.mockk.coVerify
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
+import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.Test
 
 
@@ -14,7 +17,7 @@ internal class SetTaxesDataTest {
 
     private val mockTaxesRepository: TaxesRepository = mockk(relaxUnitFun = true)
     private val mockCategoriesRepository: CategoriesRepository = mockk {
-        every { this@mockk.getByName(CATEGORY_NAME) } returns CATEGORY
+        coEvery { this@mockk.getByName(CATEGORY_NAME) } returns CATEGORY
     }
 
     private val setTaxesData = SetTaxesData(
@@ -23,10 +26,10 @@ internal class SetTaxesDataTest {
     )
 
     @Test
-    fun `test set taxes data`() {
+    fun `test set taxes data`() = runTest {
         setTaxesData()
 
-        verify {
+        coVerify {
             mockCategoriesRepository.getByName(CATEGORY_NAME)
             mockTaxesRepository.insertAll(TAXES)
         }

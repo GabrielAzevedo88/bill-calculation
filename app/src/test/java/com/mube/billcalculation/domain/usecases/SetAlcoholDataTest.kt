@@ -4,14 +4,17 @@ import com.mube.categories.domain.models.Category
 import com.mube.categories.domain.repository.CategoriesRepository
 import com.mube.products.domain.models.Product
 import com.mube.products.domain.repository.ProductsRepository
+import io.mockk.coEvery
+import io.mockk.coVerify
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
+import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.Test
 
 internal class SetAlcoholDataTest {
     private val mockCategoriesRepository: CategoriesRepository = mockk {
-        every { this@mockk.insert(CATEGORY) } returns CATEGORY_ID
+        coEvery { this@mockk.insert(CATEGORY) } returns CATEGORY_ID
     }
     private val mockProductsRepository: ProductsRepository = mockk(relaxUnitFun = true)
 
@@ -21,10 +24,10 @@ internal class SetAlcoholDataTest {
     )
 
     @Test
-    fun `test set mains data`() {
+    fun `test set mains data`() = runTest {
         setAlcoholData()
 
-        verify {
+        coVerify {
             mockCategoriesRepository.insert(CATEGORY)
             mockProductsRepository.insertAll(PRODUCTS)
         }

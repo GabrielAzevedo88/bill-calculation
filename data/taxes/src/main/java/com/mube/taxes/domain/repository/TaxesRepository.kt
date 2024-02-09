@@ -4,8 +4,9 @@ import com.mube.taxes.domain.models.Taxes
 
 interface TaxesRepository {
 
-    fun getAll(): List<Taxes>
+    suspend fun getAll(): List<Taxes>
 
-    fun insertAll(taxes: List<Taxes>)
+    suspend fun insertAll(taxes: List<Taxes>)
 
+    suspend fun hasData(): Boolean
 }

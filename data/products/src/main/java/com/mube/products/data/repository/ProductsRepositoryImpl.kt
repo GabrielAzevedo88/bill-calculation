@@ -9,9 +9,12 @@ class ProductsRepositoryImpl @Inject constructor(
     private val localSource: ProductsLocalSource
 ): ProductsRepository {
 
-    override fun getAllByCategoryId(categoryId: Int): List<Product> = localSource.getAllByCategoryId(categoryId = categoryId)
+    override suspend fun getAllByCategoryId(categoryId: Int): List<Product> = localSource.getAllByCategoryId(categoryId = categoryId)
 
-    override fun insertAll(products: List<Product>) {
+    override suspend fun insertAll(products: List<Product>) {
         localSource.insertAll(products = products)
     }
+
+    override suspend fun hasData(): Boolean = localSource.hasData()
+
 }

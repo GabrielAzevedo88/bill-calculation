@@ -10,9 +10,12 @@ import com.mube.products.data.models.ProductEntity
 interface ProductsDao {
 
     @Query("SELECT * FROM products where category_id = :categoryId")
-    fun getAllByCategoryId(categoryId: Int): List<ProductEntity>
+    suspend fun getAllByCategoryId(categoryId: Int): List<ProductEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAll(vararg products: ProductEntity)
+    suspend fun insertAll(vararg products: ProductEntity)
+
+    @Query("SELECT COUNT(*) FROM products")
+    suspend fun count(): Int
 
 }

@@ -10,10 +10,12 @@ class ProductsLocalSource @Inject constructor(
     private val dao: ProductsDao
 ) {
 
-    fun getAllByCategoryId(categoryId: Int) = dao.getAllByCategoryId(categoryId = categoryId).map { it.toDomain() }
+    suspend fun getAllByCategoryId(categoryId: Int) = dao.getAllByCategoryId(categoryId = categoryId).map { it.toDomain() }
 
-    fun insertAll(products: List<Product>) {
+     suspend fun insertAll(products: List<Product>) {
         dao.insertAll(*products.map { it.toEntity() }.toTypedArray())
     }
+
+    suspend fun hasData(): Boolean = dao.count() > 0
 
 }

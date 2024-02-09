@@ -1,16 +1,19 @@
 package com.mube.categories.domain.repository
 
 import com.mube.categories.domain.models.Category
+import kotlinx.coroutines.flow.Flow
 
 
 interface CategoriesRepository {
 
-    fun getAll(): List<Category>
+     fun getAll(): Flow<List<Category>>
 
-    fun getByName(name: String): Category
+    suspend fun getByName(name: String): Category?
 
-    fun insertAll(categories: List<Category>)
+    suspend fun insertAll(categories: List<Category>)
 
-    fun insert(category: Category): Long
+    suspend fun insert(category: Category): Long
+
+    suspend fun hasData(): Boolean
 
 }

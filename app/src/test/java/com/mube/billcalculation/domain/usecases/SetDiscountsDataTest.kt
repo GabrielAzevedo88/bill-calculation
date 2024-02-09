@@ -2,8 +2,10 @@ package com.mube.billcalculation.domain.usecases
 
 import com.mube.discounts.domain.models.Discount
 import com.mube.discounts.domain.repository.DiscountRepository
+import io.mockk.coVerify
 import io.mockk.mockk
 import io.mockk.verify
+import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.Test
 
 internal class SetDiscountsDataTest {
@@ -13,10 +15,10 @@ internal class SetDiscountsDataTest {
     private val setDiscountsData = SetDiscountsData(discountRepository = mockDiscountRepository)
 
     @Test
-    fun `test set discount data`() {
+    fun `test set discount data`() = runTest {
         setDiscountsData()
 
-        verify { mockDiscountRepository.insertAll(DISCOUNTS) }
+        coVerify { mockDiscountRepository.insertAll(DISCOUNTS) }
     }
 
     private companion object {

@@ -8,7 +8,7 @@ internal class SetDiscountsData @Inject constructor(
     private val discountRepository: DiscountRepository
 ) {
 
-    operator fun invoke() {
+    suspend operator fun invoke() {
         val discounts = listOf(
             Discount.Dollar(
                 id = 0,

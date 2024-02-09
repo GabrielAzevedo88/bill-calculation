@@ -10,9 +10,12 @@ import com.mube.taxes.data.models.TaxesEntity
 interface TaxesDao {
 
     @Query("SELECT * FROM taxes")
-    fun getAll(): List<TaxesEntity>
+    suspend fun getAll(): List<TaxesEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAll(vararg discounts: TaxesEntity)
+    suspend fun insertAll(vararg discounts: TaxesEntity)
+
+    @Query("SELECT COUNT(*) FROM taxes")
+    suspend fun count(): Int
 
 }

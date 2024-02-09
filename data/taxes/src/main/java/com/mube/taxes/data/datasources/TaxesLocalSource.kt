@@ -10,10 +10,12 @@ class TaxesLocalSource @Inject constructor(
     private val taxesDao: TaxesDao
 ) {
 
-    fun getAll(): List<Taxes> = taxesDao.getAll().map { it.toDomain() }
+    suspend fun getAll(): List<Taxes> = taxesDao.getAll().map { it.toDomain() }
 
-    fun insertAll(taxes: List<Taxes>) {
+    suspend fun insertAll(taxes: List<Taxes>) {
         taxesDao.insertAll(*taxes.map { it.toEntity() }.toTypedArray())
     }
+
+    suspend fun hasData(): Boolean = taxesDao.count() > 0
 
 }

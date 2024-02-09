@@ -5,20 +5,24 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.mube.categories.data.models.CategoryEntity
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface CategoriesDao {
 
     @Query("SELECT * FROM categories")
-    fun getAll(): List<CategoryEntity>
+    fun getAll(): Flow<List<CategoryEntity>>
 
     @Query("SELECT * FROM categories where name = :name")
-    fun getByName(name: String): CategoryEntity
+    suspend fun getByName(name: String): CategoryEntity?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAll(vararg categories: CategoryEntity)
+    suspend fun insertAll(vararg categories: CategoryEntity)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(categoryEntity: CategoryEntity): Long
+    suspend fun insert(categoryEntity: CategoryEntity): Long
+
+    @Query("SELECT COUNT(*) FROM categories")
+    suspend fun count(): Int
 
 }

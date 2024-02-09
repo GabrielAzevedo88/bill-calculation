@@ -10,10 +10,12 @@ class DiscountLocalSource @Inject constructor(
     private val discountDao: DiscountDao
 ) {
 
-    fun getAll(): List<Discount> = discountDao.getAll().map { it.toDomain() }
+    suspend fun getAll(): List<Discount> = discountDao.getAll().map { it.toDomain() }
 
-    fun insertAll(discounts: List<Discount>) {
+    suspend fun insertAll(discounts: List<Discount>) {
         discountDao.insertAll(*discounts.map { it.toEntity() }.toTypedArray())
     }
+
+   suspend fun hasData(): Boolean = discountDao.count() > 0
 
 }

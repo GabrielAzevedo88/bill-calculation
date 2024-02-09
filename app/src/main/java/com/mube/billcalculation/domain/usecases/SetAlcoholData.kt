@@ -11,7 +11,7 @@ internal class SetAlcoholData @Inject constructor(
     private val productsRepository: ProductsRepository
 ) {
 
-    operator fun invoke() {
+    suspend operator fun invoke() {
         val category = Category(id = 0, name = "Alcohol")
         val categoryId = categoriesRepository.insert(category)
 

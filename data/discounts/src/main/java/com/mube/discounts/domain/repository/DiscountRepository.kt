@@ -4,8 +4,9 @@ import com.mube.discounts.domain.models.Discount
 
 interface DiscountRepository {
 
-    fun getAll(): List<Discount>
+    suspend fun getAll(): List<Discount>
 
-    fun insertAll(discounts: List<Discount>)
+    suspend fun insertAll(discounts: List<Discount>)
 
+    suspend fun hasData(): Boolean
 }

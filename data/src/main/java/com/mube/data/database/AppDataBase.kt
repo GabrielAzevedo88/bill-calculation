@@ -2,6 +2,7 @@ package com.mube.data.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 import com.mube.categories.data.database.CategoriesDao
 import com.mube.categories.data.models.CategoryEntity
 import com.mube.categories.domain.models.Category
@@ -12,7 +13,8 @@ import com.mube.products.data.models.ProductEntity
 import com.mube.taxes.data.database.TaxesDao
 import com.mube.taxes.data.models.TaxesEntity
 
-@Database(entities = [DiscountEntity::class, TaxesEntity::class, CategoryEntity::class, ProductEntity::class], version = 1)
+@Database(entities = [DiscountEntity::class, TaxesEntity::class, CategoryEntity::class, ProductEntity::class], version = 1, exportSchema = false)
+@TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun discountDao(): DiscountDao
     abstract fun taxesDao(): TaxesDao

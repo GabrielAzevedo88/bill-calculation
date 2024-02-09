@@ -7,12 +7,15 @@ import androidx.room.Query
 import com.mube.discounts.data.models.DiscountEntity
 
 @Dao
-interface DiscountDao {
+ interface DiscountDao {
 
     @Query("SELECT * FROM discounts")
-    fun getAll(): List<DiscountEntity>
+    suspend fun getAll(): List<DiscountEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAll(vararg discounts: DiscountEntity)
+    suspend fun insertAll(vararg discounts: DiscountEntity)
+
+    @Query("SELECT COUNT(*) FROM discounts")
+    suspend fun count(): Int
 
 }

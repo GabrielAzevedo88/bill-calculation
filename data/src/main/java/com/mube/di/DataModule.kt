@@ -14,11 +14,13 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
+@Module
+@InstallIn(SingletonComponent::class)
 object DataModule {
 
     @Singleton
     @Provides
-    fun provideYourDatabase(
+    fun provideDatabase(
         @ApplicationContext app: Context
     ) = Room.databaseBuilder(
         app,
@@ -26,20 +28,16 @@ object DataModule {
         "bill_calculation"
     ).build()
 
-    @InstallIn(SingletonComponent::class)
-    @Module
-    class DatabaseModule {
-        @Provides
-        fun provideDiscountDao(appDatabase: AppDatabase): DiscountDao = appDatabase.discountDao()
+    @Provides
+    fun provideDiscountDao(appDatabase: AppDatabase): DiscountDao = appDatabase.discountDao()
 
-        @Provides
-        fun provideTaxesDao(appDatabase: AppDatabase): TaxesDao = appDatabase.taxesDao()
+    @Provides
+    fun provideTaxesDao(appDatabase: AppDatabase): TaxesDao = appDatabase.taxesDao()
 
-        @Provides
-        fun provideCategoriesDao(appDatabase: AppDatabase): CategoriesDao = appDatabase.categoriesDao()
+    @Provides
+    fun provideCategoriesDao(appDatabase: AppDatabase): CategoriesDao = appDatabase.categoriesDao()
 
-        @Provides
-        fun provideProductsDao(appDatabase: AppDatabase): ProductsDao = appDatabase.productsDao()
-    }
+    @Provides
+    fun provideProductsDao(appDatabase: AppDatabase): ProductsDao = appDatabase.productsDao()
 
 }
