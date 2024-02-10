@@ -47,7 +47,7 @@ class BillCalculationActivity : ComponentActivity() {
                     horizontalArrangement = Arrangement.spacedBy(8.dp),
                 ) {
                     MenuComponent(modifier = Modifier.weight(1f))
-                    OrderComponent(modifier = Modifier.weight(1f))
+                    OrderComponent(modifier = Modifier.weight(1f).padding(8.dp))
                 }
             }
         }

@@ -3,6 +3,7 @@ package com.mube.billcalculation.ui.views.components
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -47,7 +48,7 @@ private fun CategoryAndProduct(
     modifier: Modifier = Modifier
 ) {
 
-    Column(modifier = modifier.fillMaxSize()) {
+    Column(modifier = modifier) {
         Text(
             text = item.categoryName, modifier = Modifier
                 .background(Color.LightGray)
@@ -81,13 +82,15 @@ private fun MenuContent(
     onItemClick: (ProductId) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    items.map {
-        CategoryAndProduct(
-            item = it,
-            onItemClick = onItemClick,
-            modifier = modifier
-        )
+    Column (modifier = modifier){
+        items.map {
+            CategoryAndProduct(
+                item = it,
+                onItemClick = onItemClick,
+            )
+        }
     }
+
 }
 
 @Composable
@@ -108,7 +111,47 @@ private fun PreviewMenuComponent() {
 
     val items = listOf(
         MenuUiState.Item(
+            categoryName = "Drinks",
+            products = listOf(
+                MenuUiState.Product(
+                    id = 1,
+                    name = "Nachos",
+                    formattedPrice = "$13.99"
+                ),
+                MenuUiState.Product(
+                    id = 1,
+                    name = "Calamari",
+                    formattedPrice = "$11.99"
+                ),
+                MenuUiState.Product(
+                    id = 1,
+                    name = "Caesar Salad",
+                    formattedPrice = "$10.99"
+                )
+            )
+        ),
+        MenuUiState.Item(
             categoryName = "Appetizers",
+            products = listOf(
+                MenuUiState.Product(
+                    id = 1,
+                    name = "Nachos",
+                    formattedPrice = "$13.99"
+                ),
+                MenuUiState.Product(
+                    id = 1,
+                    name = "Calamari",
+                    formattedPrice = "$11.99"
+                ),
+                MenuUiState.Product(
+                    id = 1,
+                    name = "Caesar Salad",
+                    formattedPrice = "$10.99"
+                )
+            )
+        ),
+        MenuUiState.Item(
+            categoryName = "Food",
             products = listOf(
                 MenuUiState.Product(
                     id = 1,

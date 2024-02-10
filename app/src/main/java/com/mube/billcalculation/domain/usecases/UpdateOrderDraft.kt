@@ -33,7 +33,6 @@ class UpdateOrderDraft @Inject constructor(
         items.add(Order.Item(productId = productId, categoryId = item.categoryId, name = item.name, price = item.price, quantity = quantity))
 
         val newDraft = draft.copy(items = items)
-
         draftRepository.updateDraft(newDraft)
     }
 }

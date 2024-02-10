@@ -19,13 +19,13 @@ internal class SetTaxesData @Inject constructor(
                     id = 0,
                     name = "Tax 1",
                     amount = 5f,
-                    categoriesId = null
+                    categoriesId = emptyList()
                 ),
                 Taxes(
                     id = 0,
                     name = "Tax 2",
                     amount = 8f,
-                    categoriesId = null
+                    categoriesId = emptyList()
                 ),
                 Taxes(
                     id = 0,
