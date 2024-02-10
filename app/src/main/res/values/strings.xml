@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Bill Calculation</string>
+    <string name="quantity">%sx</string>
+    <string name="subtotal">Subtotal</string>
+    <string name="discounts">Discounts</string>
+    <string name="tax">Tax</string>
+    <string name="total">Total</string>
 </resources>

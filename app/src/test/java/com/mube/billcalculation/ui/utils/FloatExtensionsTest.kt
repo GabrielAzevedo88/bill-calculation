@@ -1,5 +1,6 @@
 package com.mube.billcalculation.ui.utils
 
+import com.mube.billcalculation.utils.toCurrency
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 

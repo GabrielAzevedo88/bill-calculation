@@ -4,8 +4,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mube.billcalculation.domain.usecases.GetMenu
 import com.mube.billcalculation.domain.usecases.InitialDataLoading
+import com.mube.billcalculation.domain.usecases.UpdateOrderDraft
 import com.mube.billcalculation.ui.mappers.toUi
 import com.mube.billcalculation.ui.models.MenuUiState
+import com.mube.products.domain.models.ProductId
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -19,7 +21,8 @@ import javax.inject.Inject
 @HiltViewModel
 internal class MenuViewModel @Inject constructor(
     initialDataLoading: InitialDataLoading,
-    getMenu: GetMenu
+    getMenu: GetMenu,
+    private val updateOrderDraft: UpdateOrderDraft
 ) : ViewModel() {
 
     val state: StateFlow<MenuState> = getMenu().map {
@@ -32,9 +35,20 @@ internal class MenuViewModel @Inject constructor(
         }
     }
 
+    fun eventHandler(menuEvent: MenuEvent) {
+        when(menuEvent) {
+            is MenuEvent.ProductClick -> updateOrderDraft.updateItem(menuEvent.productId)
+        }
+    }
+
 }
 
 internal sealed interface MenuState {
     data object Loading : MenuState
     data class Loaded(val content: MenuUiState) : MenuState
+}
+
+
+internal sealed interface MenuEvent {
+    data class ProductClick(val productId: ProductId): MenuEvent
 }

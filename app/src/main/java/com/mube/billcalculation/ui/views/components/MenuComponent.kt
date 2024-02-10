@@ -5,6 +5,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -18,18 +19,25 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.mube.billcalculation.ui.models.MenuUiState
+import com.mube.billcalculation.ui.viewmodels.MenuEvent
 import com.mube.billcalculation.ui.viewmodels.MenuState
 import com.mube.billcalculation.ui.viewmodels.MenuViewModel
 import com.mube.products.domain.models.ProductId
 
 @Composable
 internal fun MenuComponent(
-    onItemClick: (ProductId) -> Unit,
+    modifier: Modifier = Modifier,
     viewModel: MenuViewModel = hiltViewModel()
 ) {
     val state = viewModel.state.collectAsState()
 
-    Content(onItemClick = onItemClick, menuState = state.value)
+    Content(
+        onItemClick = {
+            viewModel.eventHandler(MenuEvent.ProductClick(it))
+        },
+        menuState = state.value,
+        modifier = modifier
+    )
 }
 
 @Composable
@@ -39,7 +47,7 @@ private fun CategoryAndProduct(
     modifier: Modifier = Modifier
 ) {
 
-    Column(modifier = modifier.fillMaxWidth()) {
+    Column(modifier = modifier.fillMaxSize()) {
         Text(
             text = item.categoryName, modifier = Modifier
                 .background(Color.LightGray)
@@ -85,11 +93,12 @@ private fun MenuContent(
 @Composable
 private fun Content(
     onItemClick: (ProductId) -> Unit,
-    menuState: MenuState
+    menuState: MenuState,
+    modifier: Modifier
 ) {
     when (menuState) {
-        is MenuState.Loaded -> MenuContent(items = menuState.content.items, onItemClick = onItemClick)
-        is MenuState.Loading -> Loading()
+        is MenuState.Loaded -> MenuContent(items = menuState.content.items, onItemClick = onItemClick, modifier = modifier)
+        else -> Loading(modifier = modifier)
     }
 }
 

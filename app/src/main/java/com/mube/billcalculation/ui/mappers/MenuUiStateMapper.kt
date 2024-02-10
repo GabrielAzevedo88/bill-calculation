@@ -2,7 +2,7 @@ package com.mube.billcalculation.ui.mappers
 
 import com.mube.billcalculation.domain.models.Menu
 import com.mube.billcalculation.ui.models.MenuUiState
-import com.mube.billcalculation.ui.utils.toCurrency
+import com.mube.billcalculation.utils.toCurrency
 import com.mube.products.domain.models.Product
 
 internal fun Menu.toUi(): MenuUiState {

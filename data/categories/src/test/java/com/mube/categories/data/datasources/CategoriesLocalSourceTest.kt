@@ -9,6 +9,7 @@ import io.mockk.every
 import io.mockk.justRun
 import io.mockk.mockk
 import io.mockk.verify
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.Assertions.assertEquals
@@ -28,9 +29,9 @@ internal class CategoriesLocalSourceTest {
     )
 
     @Test
-    fun `test get all entity models should return domain models`() {
+    fun `test get all entity models should return domain models`() = runTest{
         val expected = CATEGORIES
-        val actual = localSource.getAll()
+        val actual = localSource.getAll().first()
 
         assertEquals(expected, actual)
     }
