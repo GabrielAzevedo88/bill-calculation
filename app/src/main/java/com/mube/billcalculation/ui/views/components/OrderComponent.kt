@@ -50,8 +50,8 @@ private fun OrderItem(item: OrderUiState.Item) {
 @Composable
 private fun TotalItemComponent(label: String, value: String) {
     Row(horizontalArrangement = Arrangement.SpaceBetween, modifier = Modifier.fillMaxWidth()) {
-        Text(text = label, fontWeight = FontWeight.Bold)
-        Text(text = value)
+        Text(text = label, fontWeight = FontWeight.Bold, fontSize = 16.sp)
+        Text(text = value, fontSize = 16.sp)
     }
 }
 
@@ -68,7 +68,7 @@ private fun TotalsComponent(order: OrderUiState) {
 @Composable
 private fun LoadedContent(order: OrderUiState, modifier: Modifier = Modifier) {
     Column(verticalArrangement = Arrangement.SpaceBetween, modifier = modifier.fillMaxSize()) {
-        LazyColumn {
+        LazyColumn(verticalArrangement = Arrangement.spacedBy(8.dp)) {
             items(order.items) { item ->
                 OrderItem(item = item)
             }
@@ -95,7 +95,11 @@ private fun LoadedContent(order: OrderUiState, modifier: Modifier = Modifier) {
 private fun Content(state: OrderState, modifier: Modifier = Modifier) {
     when (state) {
         is OrderState.Loaded -> LoadedContent(order = state.content, modifier = modifier)
-        else -> Loading(modifier = modifier)
+        else -> {
+            Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
+                Loading(modifier = modifier)
+            }
+        }
     }
 }
 

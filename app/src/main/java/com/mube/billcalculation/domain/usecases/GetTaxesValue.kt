@@ -13,11 +13,11 @@ class GetTaxesValue @Inject constructor(
         val taxes = taxesRepository.getAll()
         if (items.isEmpty() || taxes.isEmpty()) return 0f
 
-        val regularTaxes = taxes.filter { it.categoriesId == null }.sumOf { tax ->
+        val regularTaxes = taxes.filter { it.categoriesId.isNullOrEmpty() }.sumOf { tax ->
             items.sumOf { (tax.amount percentOf it.getTotal()).toDouble() }
         }
 
-        val taxesByCategory = taxes.filter { it.categoriesId != null }.sumOf { tax ->
+        val taxesByCategory = taxes.filter { it.categoriesId?.isNotEmpty() == true }.sumOf { tax ->
             items.filter { tax.categoriesId?.contains(it.categoryId) == true }.sumOf {
                 (tax.amount percentOf it.getTotal()).toDouble()
             }

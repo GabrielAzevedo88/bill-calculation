@@ -14,10 +14,13 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.mube.billcalculation.ui.models.MenuUiState
 import com.mube.billcalculation.ui.viewmodels.MenuEvent
@@ -53,7 +56,9 @@ private fun CategoryAndProduct(
             text = item.categoryName, modifier = Modifier
                 .background(Color.LightGray)
                 .padding(8.dp)
-                .fillMaxWidth()
+                .fillMaxWidth(),
+            fontSize = 16.sp,
+            fontWeight = FontWeight.Bold
         )
 
         LazyColumn {
@@ -101,7 +106,11 @@ private fun Content(
 ) {
     when (menuState) {
         is MenuState.Loaded -> MenuContent(items = menuState.content.items, onItemClick = onItemClick, modifier = modifier)
-        else -> Loading(modifier = modifier)
+        else -> {
+            Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
+                Loading(modifier = modifier)
+            }
+        }
     }
 }
 

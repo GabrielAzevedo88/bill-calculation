@@ -18,4 +18,6 @@ class ProductsLocalSource @Inject constructor(
 
     suspend fun hasData(): Boolean = dao.count() > 0
 
+    suspend fun getProductById(productId: Int): Product? = dao.getProductById(productId = productId)?.toDomain()
+
 }

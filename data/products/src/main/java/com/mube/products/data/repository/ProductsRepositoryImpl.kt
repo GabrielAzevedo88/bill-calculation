@@ -17,4 +17,5 @@ class ProductsRepositoryImpl @Inject constructor(
 
     override suspend fun hasData(): Boolean = localSource.hasData()
 
+    override suspend fun getProductById(productId: Int): Product? = localSource.getProductById(productId)
 }

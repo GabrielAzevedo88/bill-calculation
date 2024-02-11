@@ -37,7 +37,9 @@ internal class MenuViewModel @Inject constructor(
 
     fun eventHandler(menuEvent: MenuEvent) {
         when(menuEvent) {
-            is MenuEvent.ProductClick -> updateOrderDraft.updateItem(menuEvent.productId)
+            is MenuEvent.ProductClick -> viewModelScope.launch {
+                updateOrderDraft.updateItem(menuEvent.productId)
+            }
         }
     }
 
