@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mube.billcalculation.domain.usecases.GetOrderDetails
 import com.mube.billcalculation.domain.usecases.InitializeOrder
+import com.mube.billcalculation.domain.usecases.UpdateOrderDraft
 import com.mube.billcalculation.ui.mappers.toUi
 import com.mube.billcalculation.ui.models.OrderUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -16,7 +17,7 @@ import javax.inject.Inject
 @HiltViewModel
 internal class OrderViewModel @Inject constructor(
     getOrderDetails: GetOrderDetails,
-    initializeOrder: InitializeOrder
+    private val initializeOrder: InitializeOrder
 ) : ViewModel() {
 
     val state: StateFlow<OrderState> = getOrderDetails().map {
@@ -27,9 +28,19 @@ internal class OrderViewModel @Inject constructor(
         initializeOrder()
     }
 
+    fun eventHandler(event: OrderEvent) {
+        when (event) {
+            is OrderEvent.Finalize -> initializeOrder()
+        }
+    }
+
 }
 
 internal sealed interface OrderState {
     data object Loading : OrderState
     data class Loaded(val content: OrderUiState) : OrderState
+}
+
+internal sealed interface OrderEvent {
+    data object Finalize : OrderEvent
 }

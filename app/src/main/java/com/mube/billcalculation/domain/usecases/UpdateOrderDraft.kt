@@ -13,16 +13,23 @@ class UpdateOrderDraft @Inject constructor(
 ) {
 
     fun updateDiscount(discountId: DiscountId) {
-        val item = draftRepository.getDraft().value
-
-        item?.let {
+        draftRepository.getDraft().value?.let {
             val discountIds = it.discountsIds.toMutableList()
 
+            if (discountIds.contains(discountId)) {
+                discountIds.remove(discountId)
+            } else {
+                discountIds.add(discountId)
+            }
 
-            discountIds.add(discountId)
             val newItem = it.copy(discountsIds = discountIds)
-
             draftRepository.updateDraft(newItem)
+        }
+    }
+
+    fun clearDiscounts() {
+        draftRepository.getDraft().value?.let {
+            draftRepository.updateDraft(it.copy(discountsIds = emptyList()))
         }
     }
 

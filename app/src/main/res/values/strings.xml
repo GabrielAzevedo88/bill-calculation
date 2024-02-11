@@ -6,4 +6,6 @@
     <string name="tax">Tax</string>
     <string name="total">Total</string>
     <string name="empty_order">Select a product from menu</string>
+    <string name="clear">Clear up</string>
+    <string name="finalize_order">Finalize order</string>
 </resources>
