@@ -18,7 +18,7 @@ class GetOrderDetails @Inject constructor(
                 productId = it.productId,
                 name = it.name,
                 quantity = it.quantity,
-                total = it.getTotal()
+                total = it.price
             )
         }
 

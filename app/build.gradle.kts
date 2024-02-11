@@ -55,6 +55,8 @@ dependencies {
     implementation(project(":data:products"))
 
     implementation("com.google.dagger:hilt-android:2.48")
+    implementation("androidx.compose.material3:material3-android:1.2.0")
+    implementation("androidx.constraintlayout:constraintlayout-compose-android:1.1.0-alpha13")
     debugImplementation("androidx.compose.ui:ui-tooling:1.6.1")
     kapt("com.google.dagger:hilt-android-compiler:2.48")
     implementation("androidx.hilt:hilt-navigation-compose:1.1.0")
@@ -63,7 +65,6 @@ dependencies {
     val composeBom = platform("androidx.compose:compose-bom:2024.01.00")
     implementation(composeBom)
 
-    implementation("androidx.compose.material3:material3")
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation("androidx.activity:activity-compose:1.8.2")
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.7.0")

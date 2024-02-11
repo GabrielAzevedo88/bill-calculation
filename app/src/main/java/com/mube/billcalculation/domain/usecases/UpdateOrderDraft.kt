@@ -69,6 +69,20 @@ class UpdateOrderDraft @Inject constructor(
         draftRepository.updateDraft(newDraft)
     }
 
+    fun deleteItem(productId: Int) {
+        draftRepository.getDraft().value?.let {
+            val items = it.items.toMutableList()
+            val index = items.indexOfLast { it.productId == productId }
+
+            if (index != -1) {
+                items.removeAt(index)
+
+                val newItem = it.copy(items = items)
+                draftRepository.updateDraft(newItem)
+            }
+        }
+    }
+
     private fun getOrderItem(productId: Int, categoryId: Int, name: String, price: Float, quantity: Int) =
         Order.Item(productId = productId, categoryId = categoryId, name = name, price = price, quantity = quantity)
 }

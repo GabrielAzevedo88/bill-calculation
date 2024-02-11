@@ -20,7 +20,7 @@ class GetAmounts @Inject constructor(
             subtotal = subtotal,
             discounts = discountAmount,
             taxes = taxes,
-            total = grandTotal
+            total = if(grandTotal < 0) 0f else grandTotal // The correct thing would be to always validate whether the discounts applied will be greater than the total value of the products.
         )
     }
 
