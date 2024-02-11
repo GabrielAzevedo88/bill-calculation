@@ -15,7 +15,7 @@ import org.junit.jupiter.api.Test
 
 internal class DiscountRepositoryImplTest {
 
-    private val mockLocalSource: DiscountLocalSource = mockk() {
+    private val mockLocalSource: DiscountLocalSource = mockk {
         coEvery { this@mockk.getAll() } returns DISCOUNTS
         coJustRun { this@mockk.insertAll(any()) }
     }

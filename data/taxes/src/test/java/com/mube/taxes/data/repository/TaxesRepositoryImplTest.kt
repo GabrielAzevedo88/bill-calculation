@@ -15,7 +15,7 @@ import org.junit.jupiter.api.Test
 
 internal class TaxesRepositoryImplTest {
 
-    private val mockLocalSource: TaxesLocalSource = mockk() {
+    private val mockLocalSource: TaxesLocalSource = mockk {
         coEvery { this@mockk.getAll() } returns TAXES
         coJustRun { this@mockk.insertAll(any()) }
     }

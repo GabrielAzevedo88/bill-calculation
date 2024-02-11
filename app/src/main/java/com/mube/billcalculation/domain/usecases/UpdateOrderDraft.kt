@@ -69,7 +69,7 @@ class UpdateOrderDraft @Inject constructor(
         draftRepository.updateDraft(newDraft)
     }
 
-    fun deleteItem(productId: Int) {
+    fun deleteItem(productId: ProductId) {
         draftRepository.getDraft().value?.let {
             val items = it.items.toMutableList()
             val index = items.indexOfLast { it.productId == productId }
@@ -83,7 +83,7 @@ class UpdateOrderDraft @Inject constructor(
         }
     }
 
-    private fun getOrderItem(productId: Int, categoryId: Int, name: String, price: Float, quantity: Int) =
+    private fun getOrderItem(productId: ProductId, categoryId: Int, name: String, price: Float, quantity: Int) =
         Order.Item(productId = productId, categoryId = categoryId, name = name, price = price, quantity = quantity)
 }
 

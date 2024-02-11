@@ -10,5 +10,5 @@ interface ProductsRepository {
 
     suspend fun hasData(): Boolean
 
-    suspend fun getProductById(productId: Int): Product?
+    suspend fun getProductById(productId: ProductId): Product?
 }

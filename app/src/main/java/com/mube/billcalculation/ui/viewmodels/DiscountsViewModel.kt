@@ -22,13 +22,7 @@ class DiscountsViewModel @Inject constructor(
 ) : ViewModel() {
 
     val state: StateFlow<DiscountState> = getDiscountDetails().map {
-        DiscountState.Loaded(content = it.discounts.map {
-            DiscountUiState(
-                discountId = it.id,
-                name = it.name,
-                isSelected = it.isSelected
-            )
-        })
+        DiscountState.Loaded(content = it.discounts.map { it.toUi() })
     }.stateIn(scope = viewModelScope, initialValue = DiscountState.Loading, started = SharingStarted.Eagerly)
 
     fun eventsHandler(event: DiscountsEvent) {

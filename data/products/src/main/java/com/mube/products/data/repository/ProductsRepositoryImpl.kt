@@ -2,6 +2,7 @@ package com.mube.products.data.repository
 
 import com.mube.products.data.datasources.ProductsLocalSource
 import com.mube.products.domain.models.Product
+import com.mube.products.domain.models.ProductId
 import com.mube.products.domain.repository.ProductsRepository
 import javax.inject.Inject
 
@@ -17,5 +18,5 @@ class ProductsRepositoryImpl @Inject constructor(
 
     override suspend fun hasData(): Boolean = localSource.hasData()
 
-    override suspend fun getProductById(productId: Int): Product? = localSource.getProductById(productId)
+    override suspend fun getProductById(productId: ProductId): Product? = localSource.getProductById(productId)
 }

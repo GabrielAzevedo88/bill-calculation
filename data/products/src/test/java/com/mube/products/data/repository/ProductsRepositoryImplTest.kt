@@ -15,7 +15,7 @@ import org.junit.jupiter.api.Test
 
 internal class ProductsRepositoryImplTest {
 
-    private val mockLocalSource: ProductsLocalSource = mockk() {
+    private val mockLocalSource: ProductsLocalSource = mockk {
         coEvery { this@mockk.getAllByCategoryId(categoryId = CATEGORY_ID) } returns PRODUCTS
         coJustRun { this@mockk.insertAll(any()) }
     }

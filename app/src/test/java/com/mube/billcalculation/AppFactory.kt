@@ -6,7 +6,7 @@ internal object AppFactory {
 
     object Domain {
 
-        private val ITEM_1 = Order.Item(
+        val ITEM_1 = Order.Item(
             productId = 700,
             categoryId = 100,
             name = "",
@@ -14,7 +14,7 @@ internal object AppFactory {
             price = 8f
         )
 
-        private val ITEM_2 = Order.Item(
+        val ITEM_2 = Order.Item(
             productId = 500,
             categoryId = 100,
             name = "",
@@ -22,7 +22,7 @@ internal object AppFactory {
             price = 5f
         )
 
-        private val ITEM_3 = Order.Item(
+        val ITEM_3 = Order.Item(
             productId = 600,
             categoryId = 100,
             name = "",

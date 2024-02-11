@@ -4,6 +4,7 @@ import com.mube.products.data.database.ProductsDao
 import com.mube.products.data.mappers.toDomain
 import com.mube.products.data.mappers.toEntity
 import com.mube.products.domain.models.Product
+import com.mube.products.domain.models.ProductId
 import javax.inject.Inject
 
 class ProductsLocalSource @Inject constructor(
@@ -18,6 +19,6 @@ class ProductsLocalSource @Inject constructor(
 
     suspend fun hasData(): Boolean = dao.count() > 0
 
-    suspend fun getProductById(productId: Int): Product? = dao.getProductById(productId = productId)?.toDomain()
+    suspend fun getProductById(productId: ProductId): Product? = dao.getProductById(productId = productId)?.toDomain()
 
 }
