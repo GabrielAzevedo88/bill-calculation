@@ -1,9 +1,10 @@
 package com.mube.billcalculation.utils
 
 import java.text.NumberFormat
+import java.util.Locale
 
 fun Float.toCurrency(): String {
-    val defaultFormat: NumberFormat = NumberFormat.getCurrencyInstance()
+    val defaultFormat: NumberFormat = NumberFormat.getCurrencyInstance(Locale.CANADA)
     return defaultFormat.format(this)
 }
 
